@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    echo "repo repository_name"
+else
+    echo "Checking your connection..."
+    connect
+    echo ''
+    blih -u benjamin.gaymay@epitech.eu repository create "$1"
+    blih -u benjamin.gaymay@epitech.eu repository setacl "$1" ramassage-tek r
+    git clone git@git.epitech.eu:/benjamin.gaymay@epitech.eu/"$1"
+fi

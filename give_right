@@ -1,0 +1,10 @@
+#!/bin/bash
+f=$#
+if [ $f -eq 2 ]; then
+    echo "Checking your connection..."
+    connect
+    echo ""
+    blih -u benjamin.gaymay@epitech.eu repository setacl "$1" "$2"@epitech.eu rw
+else
+    echo -e "give_right repository first_name.name"
+fi

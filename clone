@@ -1,0 +1,10 @@
+#!/bin/bash
+f=$#
+if [ $f -eq 2 ]; then
+    echo "Checking your connection..."
+    connect
+    echo ""
+    git clone git@git.epitech.eu:/"$1"@epitech.eu/"$2"
+else
+    echo -e "clone first_name.name repository"
+fi

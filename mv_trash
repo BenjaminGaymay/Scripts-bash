@@ -1,0 +1,22 @@
+#!/bin/bash
+i=1
+f=$#
+while [ $f != 0 ]; do
+    file_name=$1
+    if [ -e $file_name ]; then
+	if [ -d $file_name ]; then
+	    file_name=${file_name%/}
+	fi
+	shift
+	if [ -e ~/.local/share/Trash/files/$file_name ]; then
+	    while [ -e ~/.local/share/Trash/files/$file_name"($i)" ]; do
+		let i++
+	    done
+	    mv $file_name $file_name"($i)"
+	    file_name="$file_name($i)"
+	fi
+	i=1
+	mv $file_name -t /home/${USER}/.local/share/Trash/files/
+    fi
+    let f--
+done

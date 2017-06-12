@@ -1,0 +1,15 @@
+#!/bin/bash
+i=1
+f=$#
+while [ $f != 0 ]; do
+    file_name=$1
+    if [ $1 == "shortlist" ]; then
+	ls ~/save/library/
+    else
+	if [ $# -gt 0 ]; then
+	    cp -r ~/save/library/"$1" .
+	fi
+    fi
+    let f--
+    shift
+done

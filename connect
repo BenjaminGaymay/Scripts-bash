@@ -1,0 +1,27 @@
+#!/bin/bash
+ping -c 1 8.8.8.8 >/dev/null 2>&1
+RESULT=$?
+if [ $RESULT -ne 0 ]; then
+    echo "Trying to connect..."
+    while [ $RESULT -ne 0 ]; do
+	ping -c 1 8.8.8.8 >/dev/null 2>&1
+	RESULT=$?
+	echo "Disconnection :"
+	wpa_cli -i wlp2s0 disconnect
+	sleep 4
+	echo "Trying to connect..."
+	wpa_cli -i wlp2s0 reconnect
+	NB_TEST=0
+	while [ $RESULT -ne 0 ] && [ $NB_TEST -ne 10 ]; do
+	    echo "Waiting for connection..."
+	    ping -c 1 8.8.8.8 >/dev/null 2>&1
+	    RESULT=$?
+	    sleep 3
+	    if [ $RESULT -ne 0 ]; then
+		echo "Failure"
+		let NB_TEST++
+	    fi
+	done
+    done
+fi
+echo "You are connected"

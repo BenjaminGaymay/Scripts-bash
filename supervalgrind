@@ -1,0 +1,5 @@
+#!/bin/bash
+if [ ! -e "$1" ]; then
+    make
+fi
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --tool=memcheck "$1"
